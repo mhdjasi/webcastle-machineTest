@@ -19,9 +19,9 @@ const RelatedDetails = () => {
   // logout function
   const logout = () => {
     const confirmed = window.confirm("Are you sure you want to log out?");
-  if (confirmed) {
-    auth.signOut();
-  }
+    if (confirmed) {
+      auth.signOut();
+    }
   };
 
   // get api function
@@ -32,7 +32,7 @@ const RelatedDetails = () => {
           `https://fakestoreapi.com/products/${productId}`
         );
         setProduct(response.data);
-        setIsLoading(false); 
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching product:", error);
       }
@@ -51,6 +51,24 @@ const RelatedDetails = () => {
   const handleClose = () => {
     setIsZoomed(false);
   };
+
+  // review static data
+  const reviews = [
+    {
+      id: 1,
+      title: "Great product!",
+      content: "This product exceeded my expectations. Highly recommended!",
+      author: "John Doe",
+      src: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
+    },
+    {
+      id: 2,
+      title: "Good quality",
+      content: "The quality of this product is excellent. Im very satisfied.",
+      author: "Jane Smith",
+      src: "https://mdbcdn.b-cdn.net/img/new/avatars/1.webp",
+    },
+  ];
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -127,7 +145,7 @@ const RelatedDetails = () => {
           </div>
           {/* tabs section start here */}
 
-          <div className="product-tabs">
+          <div className="product-tabs" style={{maxHeight:"200vh"}}>
             <ul className="tab-list">
               <li
                 className={activeTab === "description" ? "active" : ""}
@@ -163,20 +181,67 @@ const RelatedDetails = () => {
               {activeTab === "features" && (
                 <div>
                   <h2>Features</h2>
-                  {/* Features content */}
-                  <h5 style={{ textAlign: "justify" }}>
-                    {product?.description}
-                  </h5>
+                  <ul style={{ textAlign: "justify" }}>
+                    <li>
+                      Multi-Level Organizer: The backpack has a front zipper
+                      pocket for the ID card, Sanitizer, House keys, Pen. First
+                      compartment with pockets for the earphones, pens,
+                      notebook, Fitness Band. Spacious second compartment for
+                      all your electronics. Compatible Laptop Size 16 inch
+                    </li>
+                    <li>
+                      Ergonomic Design: Thick cushioning around the shoulders
+                      and on the back panel makes the backpack super light and
+                      comfortable on the move. “S” Shaped shoulder strap
+                      distribute the weight of the backpack across your upper
+                      body.
+                    </li>
+                    <li>
+                      1 Year Warranty: The Wesley Business casual backpack comes
+                      with 1 year of warranty
+                    </li>
+                    <li>
+                      Water Resistant Material: Advanced IPX4 coating on the
+                      material ensures resistance to water entering from any
+                      direction.
+                    </li>
+                    <li>
+                      30L Capacity: The Backpack has a padded laptop compartment
+                      that can fit 15.6 inch laptop. It can also accommodate
+                      essentials such as a Lunch box, Charger, Tablet, Books,
+                      Power Bank, Wallet, and Sunglass.
+                    </li>
+                  </ul>
                 </div>
               )}
 
               {activeTab === "reviews" && (
                 <div>
                   <h2>Reviews</h2>
-                  {/* Reviews content */}
-                  <h5 style={{ textAlign: "justify" }}>
-                    {product?.description}
-                  </h5>
+                  <div>
+                    {reviews.map((review) => (
+                      <div key={review.id}>
+                        <div className="row d-flex">
+                          <div className="col-lg-1">
+                            <div className="my-3 d-flex justify-content-center">
+                              <img
+                                style={{ height: "60px" }}
+                                src={review?.src}
+                                className="rounded-circle"
+                                alt="Avatar"
+                              />
+                            </div>
+                          </div>
+                          <div className="col-lg-10">
+                            <h5>{review?.title}</h5>
+                            <p>{review?.content}</p>
+                            <p>By: {review?.author}</p>
+                          </div>
+                        </div>
+                        <hr />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>

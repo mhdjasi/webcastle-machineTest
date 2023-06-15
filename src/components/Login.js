@@ -68,7 +68,7 @@ const Login = () => {
                     onChange={(e) => {
                       setnumber(e.target.value);
                     }}
-                    placeholder="Enter your phone number"
+                    placeholder="Enter  phone number"
                   />
                 </div>
                 <br />
